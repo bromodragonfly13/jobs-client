@@ -47,8 +47,12 @@ export default {
           login: {url: '/api/login', method: 'post', propertyName: false},
           login: {url: '/api/logout', method: 'post'},
           user: {url: '/api/user', method: 'get', propertyName: false},
-        }
-      }
+        },
+
+        tokenRequired: false,
+        tokenType: false
+      },
+      localStorage: false
     }
   },
 
