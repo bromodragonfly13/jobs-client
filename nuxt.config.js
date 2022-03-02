@@ -42,11 +42,12 @@ export default {
 
   auth: {
     strategies: {
+      
       local :{
         endpoints: {
-          login: {url: '/api/login', method: 'post', propertyName: false},
-          login: {url: '/api/logout', method: 'post'},
-          user: {url: '/api/user', method: 'get', propertyName: false},
+          login: {url: 'api/login', method: 'post', propertyName: false},
+          logout: {url: 'api/logout', method: 'post'},
+          user: {url: 'api/user', method: 'get', propertyName: false},
         },
 
         tokenRequired: false,
@@ -57,8 +58,8 @@ export default {
   },
 
   axios: {
-    baseURL: 'http://127.0.0.1',
-    credenrials: true
+    baseURL: 'http://jobs.test:8000',
+    credentials: true
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
