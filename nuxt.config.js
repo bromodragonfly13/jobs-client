@@ -40,6 +40,18 @@ export default {
 
   ],
 
+  auth: {
+    strategies: {
+      local :{
+        endpoints: {
+          login: {url: '/api/login', method: 'post', propertyName: false},
+          login: {url: '/api/logout', method: 'post'},
+          user: {url: '/api/user', method: 'get', propertyName: false},
+        }
+      }
+    }
+  },
+
   axios: {
     baseURL: 'http://127.0.0.1',
     credenrials: true
