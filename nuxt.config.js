@@ -44,10 +44,11 @@ export default {
     strategies: {
       
       local :{
+        provider: 'laravel/sanctum',
         endpoints: {
-          login: {url: 'api/login', method: 'post', propertyName: false},
-          logout: {url: 'api/logout', method: 'post'},
-          user: {url: 'api/user', method: 'get', propertyName: false},
+          login: {url: '/api/login', method: 'post', propertyName: false},
+          logout: {url: '/api/logout', method: 'post'},
+          user: {url: '/api/user', method: 'get', propertyName: false},
         },
 
         tokenRequired: false,
@@ -58,7 +59,7 @@ export default {
   },
 
   axios: {
-    baseURL: 'http://jobs.test:8000',
+    baseURL: 'http://jobs.test',
     credentials: true
   },
 
