@@ -31,6 +31,7 @@
                 job_link,
                 company_name,
                 company_logo,
+                highlighted,
                 tags{
                   id,
                   title,
