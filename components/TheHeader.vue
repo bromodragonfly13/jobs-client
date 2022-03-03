@@ -6,7 +6,7 @@
 
             <template v-if="$auth.loggedIn">
                 <span class="mx-4 font-bold">{{$auth.user.name}}</span>
-                <a href="" class="mx-4" exact-active-class="text-blue-500">Manage listings</a>
+                <nuxt-link :to="{name: 'user-listings'}" class="mx-4" exact-active-class="text-blue-500">Manage listings</nuxt-link>
                 <a href="" class="mx-4" exact-active-class="text-blue-500" @click.prevent="logout">Logout</a>
             </template>
 
