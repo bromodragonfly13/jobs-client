@@ -7,7 +7,7 @@
     </div>
 
     <div class="mt-10">
-      {{jobs}}
+      <job v-for="job in jobs" :key="job.id" :job="job" />
     </div>
 
   </div>
@@ -28,7 +28,14 @@
                 id,
                 job_title,
                 job_location,
-                company_name
+                job_link,
+                company_name,
+                company_logo,
+                tags{
+                  id,
+                  title,
+                  slug
+                }
               }
             }
         `,
