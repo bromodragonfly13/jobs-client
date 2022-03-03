@@ -1,0 +1,8 @@
+# Write your query or mutation here
+query Tag($slug: String!) {
+  tag(slug: $slug){
+    id,
+    title,
+    slug
+  }
+}

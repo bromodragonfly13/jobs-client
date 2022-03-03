@@ -30,8 +30,8 @@
             </div>
 
             <div class="w-full md:w-4/12 mb-2 ">
-                <a href="" v-for="tag in job.tags" :key="tag.slug"
-                class="inline-block text-gray-600 border-2 border-gray-300 px-3 py-1 rounded-lg mr-2 bg-white">{{tag.title}}</a>
+                <nuxt-link :to="{name: 'tags-slug', params: {slug: tag.slug}}" v-for="tag in job.tags" :key="tag.slug"
+                class="inline-block text-gray-600 border-2 border-gray-300 px-3 py-1 rounded-lg mr-2 bg-white">{{tag.title}}</nuxt-link>
             </div>
 
             <div class="mb-2">
