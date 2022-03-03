@@ -36,9 +36,21 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '@nuxtjs/apollo'
 
   ],
+
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpLinkOptions: {
+          credentials: 'include'
+        },
+        httpEndpoint: 'http://jobs.test/graphql',
+      }
+    }
+  },
 
   auth: {
     strategies: {
