@@ -3,9 +3,8 @@
         <form action="" class="w-6/12" @submit.prevent="login">
             <div class="mb-10">
                 <h2 class="mb-4 text-2xl font-bold">Listing details</h2>
-                {{form}}
                 
-
+                {{tags}}
                 <div class="mb-4">
                     <label for="job_title" class="inline-block mb-1 font-medium">Job title</label>
                     <input type="text" name="job_title" id="job_title" class="bg-gray-200 border-2
@@ -26,8 +25,8 @@
 
                 <div class="mb-4">
                     <label for="tags" class="inline-block mb-1 font-medium">Tags</label>
-                    <input type="text" name="tags" id="tags" class="bg-gray-200 border-2
-                    border-gray-200 rounded-lg w-full h-10 px-4" v-model="form.tags">
+                    <v-select inputId="tags" label="title" :reduce="tag => tag.id" 
+                        :options="tags" multiple v-model="form.tags"> </v-select>
                 </div>
 
                 <div class="mb-4">
@@ -88,6 +87,7 @@
 </template>
 
 <script>
+    import ALL_TAGS from '@/graphql/AllTags.gql'
     export default{
         data() {
             return{
@@ -104,6 +104,12 @@
                     user_email: '',
                     user_password: '',
                 }
+            }
+        },
+
+        apollo: {
+            tags: {
+                query: ALL_TAGS
             }
         }
     }
