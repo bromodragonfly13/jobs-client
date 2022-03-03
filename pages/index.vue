@@ -16,31 +16,12 @@
 
 <script>
   import gql from 'graphql-tag'
+  import ALL_JOBS from '@/graphql/AllJobs.gql'
 
   export default {
     apollo: {
       jobs: {
-        query: gql`
-            {
-              jobs(
-                orderBy: [{column: PINNED, order: DESC}, {column: CREATED_AT, order: DESC}]
-              ){
-                id,
-                job_title,
-                job_location,
-                job_link,
-                company_name,
-                company_logo,
-                highlighted,
-                pinned,
-                tags{
-                  id,
-                  title,
-                  slug
-                }
-              }
-            }
-        `,
+        query: ALL_JOBS,
         fetchPolicy: 'network-only'
       }
     }
