@@ -2,7 +2,7 @@
     <header class="py-6 flex items-center justify-between">
         <nuxt-link :to="{name: 'index'}" exact-active-class="text-blue-500">Jobs</nuxt-link>
         <div class="-mx-4 flex items-center flex-wrap">
-            <a href="" class="mx-4" exact-active-class="text-blue-500">Post a job</a>
+            <nuxt-link :to="{name: 'jobs-create'}" class="mx-4" exact-active-class="text-blue-500">Post a job</nuxt-link>
 
             <template v-if="$auth.loggedIn">
                 <span class="mx-4 font-bold">{{$auth.user.name}}</span>
