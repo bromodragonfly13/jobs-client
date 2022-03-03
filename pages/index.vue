@@ -23,7 +23,7 @@
         query: gql`
             {
               jobs(
-                orderBy: [{column: CREATED_AT, order: DESC}]
+                orderBy: [{column: PINNED, order: DESC}, {column: CREATED_AT, order: DESC}]
               ){
                 id,
                 job_title,
@@ -32,6 +32,7 @@
                 company_name,
                 company_logo,
                 highlighted,
+                pinned,
                 tags{
                   id,
                   title,
