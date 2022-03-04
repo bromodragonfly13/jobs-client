@@ -1,10 +1,11 @@
 <template>
     <div class="mt-10 flex justify-center">
-        <form action="" class="w-6/12" @submit.prevent="login">
+        <form action="" class="w-6/12" @submit.prevent="submit">
             <div class="mb-10">
                 <h2 class="mb-4 text-2xl font-bold">Listing details</h2>
+
+                {{form}}
                 
-                {{tags}}
                 <div class="mb-4">
                     <label for="job_title" class="inline-block mb-1 font-medium">Job title</label>
                     <input type="text" name="job_title" id="job_title" class="bg-gray-200 border-2
@@ -12,7 +13,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="job_location" class="inline-block mb-1 font-medium">Job loction</label>
+                    <label for="job_location" class="inline-block mb-1 font-medium">Job location</label>
                     <input type="text" name="job_location" id="job_location" class="bg-gray-200 border-2
                     border-gray-200 rounded-lg w-full h-10 px-4" v-model="form.job_location ">
                 </div>
@@ -88,6 +89,7 @@
 
 <script>
     import ALL_TAGS from '@/graphql/AllTags.gql'
+    import CREATE_JOB_WITH_USER from '@/graphql/CreateJobWithUser.gql'
     export default{
         data() {
             return{
@@ -110,6 +112,30 @@
         apollo: {
             tags: {
                 query: ALL_TAGS
+            }
+        },
+
+        methods:{
+            createListingWithUser(){
+                this.$apollo.mutate({
+                    mutation: CREATE_JOB_WITH_USER,
+                    variables: this.form
+
+                }).then(() => {
+                    this.$axios.$get('/sanctum/csrf-cookie').then(responce => {
+                        this.$auth.loginWith('local',{
+                            data: {
+                                email: this.form.user_email,
+                                password: this.form.user_password,
+                            }
+                    }).then(() => {
+                        this.$router.replace({ name: 'index'})
+                    })
+                })
+            })
+            },
+            submit(){
+                this.createListingWithUser()
             }
         }
     }

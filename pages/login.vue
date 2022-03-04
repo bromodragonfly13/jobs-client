@@ -37,8 +37,6 @@
         methods: {
             login(){
                 this.$axios.$get('/sanctum/csrf-cookie').then(responce => {
-
-                    console.log(responce)
                     try{
                         this.$auth.loginWith('local',{
                             data: this.form
