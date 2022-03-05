@@ -35,10 +35,13 @@
             </div>
 
             <div class="mb-2">
-                <div class="opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    <a :href="job.job_link" class="inline-block border-2 border-blue-400 text-blue-400
-                    font-bold rounded-lg px-3 py-2 bg-white">Apply for this job</a>
-                </div>
+                <slot name="actions">
+                    <div class="opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <a :href="job.job_link" class="inline-block border-2 border-blue-400 text-blue-400
+                        font-bold rounded-lg px-3 py-2 bg-white">Apply for this job</a>
+                    </div>
+                </slot>
+                
             </div>
 
         </div>

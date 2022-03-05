@@ -6,7 +6,11 @@
     </div>
 
     <div class="mt-10" v-if="me">
-      <job v-for="job in me.jobs" :key="job.id" :job="job" />
+      <job v-for="job in me.jobs" :key="job.id" :job="job" >
+        <template slot="actions">
+          <nuxt-link :to="{name: 'jobs-id-edit', params: {id: job.id}}" href="" class="font-medium text-blue-500">Edit</nuxt-link>
+        </template>
+      </job>
     </div>
 
   </div>

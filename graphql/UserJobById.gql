@@ -1,0 +1,19 @@
+query UserJobById ($id: ID!){
+    me{
+      jobs(id: $id){
+        id,
+        job_title,
+        job_location,
+        job_link,
+        company_name,
+        company_logo,
+        highlighted,
+        pinned,
+        tags{
+            id,
+            title,
+            slug
+            }
+      }
+  }
+}
