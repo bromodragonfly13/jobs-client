@@ -1,0 +1,21 @@
+mutation UpdateJob($id: ID!, $job_title: String, $job_location: String, $job_link: String, $company_name: String, $company_logo: String, $highlighted: Boolean, $pinned: Boolean, $tags: [ID!]){
+  updateJob(id: $id, input: {
+    job_title: $job_title,
+    job_location: $job_location,
+    job_link: $job_link,
+    company_name: $company_name,
+    company_logo: $company_logo,
+    highlighted: $highlighted,
+    pinned: $pinned,
+    tags: {
+      sync: $tags
+    }
+  }){
+    id,
+    tags{
+      id,
+      title,
+      slug
+    }
+  }
+}

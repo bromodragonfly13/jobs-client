@@ -1,6 +1,6 @@
 <template>
     <div class="mt-10 flex justify-center">
-        <form action="" class="w-6/12" v-if="me">
+        <form action="" class="w-6/12" v-if="me" @submit.prevent="submit">
             <div class="mb-10">
                 <h2 class="mb-4 text-2xl font-bold">Listing details</h2>
 
@@ -35,12 +35,13 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="tags" class="inline-block mb-1 font-medium">Tags</label>
-                    <v-select inputId="tags" label="title" :reduce="tag => tag.id" 
-                        :options="tags" multiple class="border-2 border-gray-200 rounded-lg" :class="{'border-red-500': errors['input.tags.connect']}" v-model="me.jobs[0].tags"> </v-select>
 
-                    <div class="text-sm text-red-500 mt-1" v-if="errors['input.tags.connect']">
-                            {{errors['input.tags.connect'][0]}}
+                    <label for="tags" class="inline-block mb-1 font-medium">Tags</label>
+                    <v-select inputId="tags" label="title"
+                        :options="tags" multiple class="border-2 border-gray-200 rounded-lg" :class="{'border-red-500': errors['input.tags.sync']}" v-model="me.jobs[0].tags"> </v-select>
+
+                    <div class="text-sm text-red-500 mt-1" v-if="errors['input.tags.sync']">
+                            {{errors['input.tags.sync'][0]}}
                     </div>
                 </div>
 
@@ -84,12 +85,18 @@
 <script>
     import USER_JOB_BY_ID from '@/graphql/UserJobById.gql'
     import ALL_TAGS from '@/graphql/AllTags.gql'
+    import UPDATE_JOB from '@/graphql/UpdateJob.gql'
     export default {
         data(){
             return {
                 errors: {
 
                 }
+            }
+        },
+        computed: {
+            tagsIds(){
+                return this.me.jobs[0].tags.map(t => t.id)
             }
         },
         apollo: {
@@ -104,6 +111,19 @@
             },
             tags: {
                 query: ALL_TAGS
+            }
+        },
+        methods: {
+            submit(){
+                this.$apollo.mutate({
+                    mutation: UPDATE_JOB,
+                    variables: {...this.me.jobs[0], tags: this.tagsIds}
+                }).then(() =>{
+                    this.$router.replace({name: 'user-listings'})
+                }).catch(e =>{
+                    this.errors = e.graphQLErrors[0].extensions.validation
+
+                })
             }
         }
     }
