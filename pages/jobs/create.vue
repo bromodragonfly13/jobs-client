@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            <dir class="mb-10">
+            <dir class="mb-10" v-if="!$auth.loggedIn ">
                 <h2 class="mb-4 text-2xl font-bold">Create an account to manage your listings</h2>
 
                 <div class="bg-gray-400 p-6 rounded-lg">
@@ -124,6 +124,7 @@
 <script>
     import ALL_TAGS from '@/graphql/AllTags.gql'
     import CREATE_JOB_WITH_USER from '@/graphql/CreateJobWithUser.gql'
+    import CREATE_JOB from '@/graphql/CreateJob.gql'
     export default{
         data() {
             return{
@@ -151,6 +152,18 @@
         },
 
         methods:{
+            createListing(){
+                this.$apollo.mutate({
+                    mutation: CREATE_JOB,
+                    variables: this.form
+
+                }).then(() => {
+                        this.$router.replace({ name: 'index'})
+                }).catch((e) => {
+                this.errors = e.graphQLErrors[0].extensions.validation
+
+            })
+            },
             createListingWithUser(){
                 this.$apollo.mutate({
                     mutation: CREATE_JOB_WITH_USER,
@@ -173,7 +186,11 @@
             })
             },
             submit(){
-                this.createListingWithUser()
+                if(!this.$auth.loggedIn){
+                    this.createListingWithUser()
+                    return
+                }
+                this.createListing()
             }
         }
     }
